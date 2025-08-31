@@ -10,38 +10,38 @@ import os
 
 def run_command(cmd, description):
     """Run a command and show output"""
-    print(f"\n🔄 {description}...")
+    print(f"\nRunning {description}...")
     try:
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
         if result.returncode == 0:
-            print(f"✅ {description} completed")
+            print(f"SUCCESS: {description} completed")
             if result.stdout:
                 print(result.stdout)
         else:
-            print(f"❌ {description} failed:")
+            print(f"ERROR: {description} failed:")
             print(result.stderr)
             return False
         return True
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"ERROR: {e}")
         return False
 
 def deploy_to_pythonanywhere():
     """Deploy backend to PythonAnywhere"""
     
-    print("🚀 Deploying AiBeatzbyJyntzu Backend to PythonAnywhere")
+    print("Deploying AiBeatzbyJyntzu Backend to PythonAnywhere")
     print("=" * 60)
     
     # Step 1: Commit and push to GitHub
     if not run_command("git add .", "Adding files to git"):
         return False
     
-    commit_msg = input("📝 Enter commit message (or press Enter for default): ").strip()
+    commit_msg = input("Enter commit message (or press Enter for default): ").strip()
     if not commit_msg:
         commit_msg = "Update backend code"
     
     if not run_command(f'git commit -m "{commit_msg}"', "Committing changes"):
-        print("ℹ️  No changes to commit or commit failed")
+        print("INFO: No changes to commit or commit failed")
     
     if not run_command("git push origin main", "Pushing to GitHub"):
         return False
@@ -57,19 +57,19 @@ def deploy_to_pythonanywhere():
         "touch /var/www/jyntzu_pythonanywhere_com_wsgi.py"
     ]
     
-    print("\n📋 Run these commands on PythonAnywhere console:")
+    print("\nRun these commands on PythonAnywhere console:")
     print("-" * 50)
     for cmd in ssh_commands:
         print(f"  {cmd}")
     print("-" * 50)
     
-    print("\n🌐 Or use this one-liner:")
+    print("\nOr use this one-liner:")
     one_liner = " && ".join(ssh_commands)
     print(f"  {one_liner}")
     
-    print("\n✅ Deployment commands ready!")
-    print("💡 Go to PythonAnywhere console and run the commands above")
-    print("🔄 Your backend will be updated automatically")
+    print("\nDeployment commands ready!")
+    print("Go to PythonAnywhere console and run the commands above")
+    print("Your backend will be updated automatically")
 
 if __name__ == "__main__":
     deploy_to_pythonanywhere()
