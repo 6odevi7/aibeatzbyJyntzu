@@ -372,11 +372,12 @@
         let isAuthenticated = false;
         let currentUser = null;
         
-        // Always require fresh login - no stored credentials
+        // BYPASS AUTH FOR TESTING
         function initializeApp() {
-            // Clear any stored credentials
-            localStorage.removeItem('aibeatz_auth');
-            showAuthScreen();
+            // Skip auth and go straight to main app
+            isAuthenticated = true;
+            currentUser = { username: 'test', isAdmin: true };
+            showMainApp();
         }
         
         function showAuthScreen() {
