@@ -4,6 +4,7 @@
     <title>AiBeatzbyJyntzu - AI Beat Maker</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.paypal.com/sdk/js?client-id=BAARXywlKt4x8GDqlCSLhMJUnVGabzjJ6sfutd54YHB_QiV9dNnjlkpCJB-GJexFVZL0xhFFCBxNTbMC8k&components=hosted-buttons&enable-funding=venmo&currency=USD"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background: #0f0f0f; color: #fff; }
@@ -97,8 +98,14 @@
                 <div class="price">$100</div>
                 <p>✅ Lifetime access • ✅ All features • ✅ Free updates forever • ✅ No monthly fees</p>
                 <div class="payment-options">
+                    <div id="paypal-container-GVCLJ42W5QTSC"></div>
                     <a href="https://cash.app/$mysterymichael/100" class="payment-btn">💰 CashApp $100</a>
                 </div>
+                <script>
+                  paypal.HostedButtons({
+                    hostedButtonId: "GVCLJ42W5QTSC",
+                  }).render("#paypal-container-GVCLJ42W5QTSC")
+                </script>
             </div>
             
             <!-- Annual Subscription -->
