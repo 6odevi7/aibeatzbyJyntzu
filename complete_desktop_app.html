@@ -371,6 +371,29 @@
         let selectedRating = 0;
         let isAuthenticated = false;
         let currentUser = null;
+        
+        // Always require fresh login - no stored credentials
+        function initializeApp() {
+            // Clear any stored credentials
+            localStorage.removeItem('aibeatz_auth');
+            showAuthScreen();
+        }
+        
+        function showAuthScreen() {
+            document.getElementById('auth-screen').style.display = 'flex';
+            document.getElementById('main-app').style.display = 'none';
+        }
+        
+        function showMainApp() {
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('main-app').style.display = 'flex';
+            
+            // Update UI for user type
+            if (currentUser && !currentUser.isAdmin) {
+                const accountsTab = document.querySelector('[onclick="showTab(\'accounts\')"]');
+                if (accountsTab) accountsTab.style.display = 'none';
+            }
+        }
 
         // Authentication Functions
         async function authenticateUser() {
@@ -397,16 +420,10 @@
                     isAuthenticated = true;
                     currentUser = { username: data.username, isAdmin: data.is_admin };
                     
-                    document.getElementById('auth-screen').style.display = 'none';
-                    document.getElementById('main-app').style.display = 'flex';
+                    // Don't store credentials - require login each time
                     
+                    showMainApp();
                     showAuthStatus('Login successful!', 'success');
-                    
-                    // Update UI for user type
-                    if (!data.is_admin) {
-                        // Hide admin-only tabs for regular users
-                        document.querySelector('[onclick="showTab(\'accounts\')"]').style.display = 'none';
-                    }
                 } else {
                     showAuthStatus(data.error || 'Invalid credentials', 'error');
                 }
@@ -875,10 +892,12 @@
             if (confirm('Are you sure you want to logout?')) {
                 isAuthenticated = false;
                 currentUser = null;
-                document.getElementById('main-app').style.display = 'none';
-                document.getElementById('auth-screen').style.display = 'flex';
+                localStorage.removeItem('aibeatz_auth');
+                
+                showAuthScreen();
                 document.getElementById('authUsername').value = '';
                 document.getElementById('authPassword').value = '';
+                document.getElementById('authStatus').innerHTML = '';
             }
         }
 
@@ -917,16 +936,19 @@
         }
 
         window.onload = async function() {
+            // Always show login screen first
+            initializeApp();
+            
             try {
                 const response = await fetch(`${API_BASE_URL}/health`);
                 if (response.ok) {
-                    showStatus('🟢 Connected to backend server', 'success');
+                    console.log('Backend connected');
                     checkForUpdates();
                 } else {
-                    showStatus('🟡 Backend server responding but may have issues', 'error');
+                    console.log('Backend issues detected');
                 }
             } catch (error) {
-                showStatus('🔴 Backend server not running. Start the Python backend first.', 'error');
+                console.log('Backend connection failed:', error);
             }
             
             document.addEventListener('click', function(e) {
@@ -948,6 +970,14 @@
             });
             
             setInterval(checkForUpdates, 30 * 60 * 1000);
+            
+            // Force logout button to clear everything
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+                    localStorage.removeItem('aibeatz_auth');
+                    location.reload();
+                }
+            });
         };
     </script>
 </body>
