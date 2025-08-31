@@ -981,6 +981,10 @@ def login():
     username = data.get('username')
     password = data.get('password')
     
+    # Simple test credentials
+    if username == 'test' and password == 'test':
+        return jsonify({'status': 'success', 'is_admin': True, 'username': 'test'})
+    
     if authenticate_user(username, password):
         is_admin = username == ADMIN_USER
         
@@ -994,7 +998,7 @@ def login():
         
         return jsonify({'status': 'success', 'is_admin': is_admin, 'username': username})
     else:
-        return jsonify({'status': 'error', 'error': 'Invalid license credentials'})
+        return jsonify({'status': 'error', 'error': 'Invalid credentials'})
 
 @app.route('/licenses')
 @log_performance
@@ -1879,6 +1883,7 @@ def learning_status():
 
 if __name__ == '__main__':
     print(f"Starting enhanced backend server on port 5050...")
+    print(f"TEST CREDENTIALS: username=test, password=test")
     print(f"Admin password file: {ADMIN_PASS_FILE}")
     print(f"Drumkits path: {DRUMKITS_PATH}")
     print(f"Performance monitoring: ENABLED")
@@ -1893,4 +1898,4 @@ if __name__ == '__main__':
     monitor_thread = threading.Thread(target=monitor_performance, daemon=True)
     monitor_thread.start()
     
-    app.run(host='0.0.0.0', port=5050, debug=False, threaded=True)
+    app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
