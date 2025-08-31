@@ -1,0 +1,10 @@
+- [x] Project folder structure created for AiBeatzbyJyntzu (RapBeatsAI).
+- [ ] Scaffold Electron + Node.js desktop app.
+- [ ] Add Python backend for AI/ML (optional).
+- [ ] Implement sample downloader/organizer.
+- [ ] Build AI beatmaker logic.
+- [ ] Add artist/style referencing (search, not copy).
+- [ ] Add export and sharing features.
+- [ ] Document sources and usage.
+- [ ] Prepare for future web integration.
+- [ ] Stop going in circles.

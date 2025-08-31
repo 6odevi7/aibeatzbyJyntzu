@@ -1,0 +1,47 @@
+# Build outputs
+dist/
+build/
+*.exe
+*.msi
+*.dmg
+*.deb
+*.rpm
+
+# Node modules
+node_modules/
+
+# Generated beats
+generated_beats/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Temporary files
+*.tmp
+*.temp
+
+# Large sample libraries (don't push to git)
+drumkits/
+samples/
+Chosen-1/
+JINTSU CATALOG/
+
+# User data
+exports/accounts.json
+exports/licenses.json
+exports/download_links.json
+exports/admin_pass.txt

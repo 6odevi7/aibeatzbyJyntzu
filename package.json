@@ -1,0 +1,54 @@
+{
+  "name": "aibeatzbyJyntzu",
+  "version": "1.0.0",
+  "description": "Professional AI-Powered Beat Maker",
+  "main": "main.js",
+  "author": "Jintsu <djtaoist@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://chosen1.cloud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jintsu/aibeatzbyJyntzu.git"
+  },
+  "build": {
+    "appId": "com.chosen1.aibeatzbyJyntzu",
+    "productName": "AiBeatzbyJyntzu",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "complete_desktop_app.html",
+      "auto_updater.js",
+      "drumkits/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico",
+      "publisherName": "Chosen1 Studios",
+      "sign": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "jintsu",
+      "repo": "aibeatzbyJyntzu"
+    }
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "dist": "electron-builder --publish=never",
+    "release": "electron-builder --publish=always"
+  },
+  "devDependencies": {
+    "electron": "^22.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "dependencies": {
+    "electron-updater": "^5.3.0"
+  }
+}
